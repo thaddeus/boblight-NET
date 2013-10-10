@@ -228,6 +228,27 @@ namespace boblight_net
             sendData("set light " + light + " use " + use.ToString().ToLower() + "\n");
         }
 
+        public void setInterpolation(light light, bool interpolate)
+        {
+            //set interpolation of light
+            sendInterpolation(light.getName(), interpolate);
+        }
+
+        public void setInterpolation(light[] lights, bool interpolate)
+        {
+            //set interpolation of array of lights
+            foreach (light light in lights)
+            {
+                sendInterpolation(light.getName(), interpolate);
+            }
+        }
+
+        private void sendInterpolation(string light, bool interpolate)
+        {
+            //boblightd version 5 set light interpolation
+            sendData("set light " + light + " interpolation " + interpolate.ToString().ToLower() + "\n");
+        }
+
         public void syncLights()
         {
             //boblightd version 5 sync lights

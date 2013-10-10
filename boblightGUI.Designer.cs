@@ -48,6 +48,9 @@
             this.textHex = new System.Windows.Forms.TextBox();
             this.lblHex = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.buttonInterpolate = new System.Windows.Forms.Button();
+            this.checkInterpolate = new System.Windows.Forms.CheckBox();
             this.panelNetwork.SuspendLayout();
             this.panelProperties.SuspendLayout();
             this.SuspendLayout();
@@ -141,14 +144,16 @@
             // 
             this.listLights.Enabled = false;
             this.listLights.FormattingEnabled = true;
-            this.listLights.Location = new System.Drawing.Point(12, 11);
+            this.listLights.Location = new System.Drawing.Point(12, 33);
             this.listLights.Name = "listLights";
             this.listLights.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listLights.Size = new System.Drawing.Size(138, 290);
+            this.listLights.Size = new System.Drawing.Size(138, 303);
             this.listLights.TabIndex = 5;
             // 
             // panelProperties
             // 
+            this.panelProperties.Controls.Add(this.buttonInterpolate);
+            this.panelProperties.Controls.Add(this.checkInterpolate);
             this.panelProperties.Controls.Add(this.buttonUse);
             this.panelProperties.Controls.Add(this.checkUse);
             this.panelProperties.Controls.Add(this.buttonSpeed);
@@ -160,15 +165,15 @@
             this.panelProperties.Enabled = false;
             this.panelProperties.Location = new System.Drawing.Point(156, 123);
             this.panelProperties.Name = "panelProperties";
-            this.panelProperties.Size = new System.Drawing.Size(178, 145);
+            this.panelProperties.Size = new System.Drawing.Size(178, 177);
             this.panelProperties.TabIndex = 2;
             // 
             // buttonUse
             // 
-            this.buttonUse.Location = new System.Drawing.Point(91, 117);
+            this.buttonUse.Location = new System.Drawing.Point(91, 148);
             this.buttonUse.Name = "buttonUse";
             this.buttonUse.Size = new System.Drawing.Size(84, 25);
-            this.buttonUse.TabIndex = 11;
+            this.buttonUse.TabIndex = 13;
             this.buttonUse.Text = "Set Use";
             this.buttonUse.UseVisualStyleBackColor = true;
             this.buttonUse.Click += new System.EventHandler(this.buttonUse_Click);
@@ -178,10 +183,10 @@
             this.checkUse.AutoSize = true;
             this.checkUse.Checked = true;
             this.checkUse.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkUse.Location = new System.Drawing.Point(3, 121);
+            this.checkUse.Location = new System.Drawing.Point(3, 152);
             this.checkUse.Name = "checkUse";
             this.checkUse.Size = new System.Drawing.Size(82, 17);
-            this.checkUse.TabIndex = 10;
+            this.checkUse.TabIndex = 12;
             this.checkUse.Text = "Use Light(s)";
             this.checkUse.UseVisualStyleBackColor = true;
             // 
@@ -242,17 +247,46 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(157, 280);
+            this.label1.Location = new System.Drawing.Point(158, 316);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(176, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "boblight-NET for boblightd version 5";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Lights:";
+            // 
+            // buttonInterpolate
+            // 
+            this.buttonInterpolate.Location = new System.Drawing.Point(82, 117);
+            this.buttonInterpolate.Name = "buttonInterpolate";
+            this.buttonInterpolate.Size = new System.Drawing.Size(93, 25);
+            this.buttonInterpolate.TabIndex = 11;
+            this.buttonInterpolate.Text = "Set Interpolation";
+            this.buttonInterpolate.UseVisualStyleBackColor = true;
+            // 
+            // checkInterpolate
+            // 
+            this.checkInterpolate.AutoSize = true;
+            this.checkInterpolate.Location = new System.Drawing.Point(3, 121);
+            this.checkInterpolate.Name = "checkInterpolate";
+            this.checkInterpolate.Size = new System.Drawing.Size(76, 17);
+            this.checkInterpolate.TabIndex = 10;
+            this.checkInterpolate.Text = "Interpolate";
+            this.checkInterpolate.UseVisualStyleBackColor = true;
+            // 
             // boblightGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 313);
+            this.ClientSize = new System.Drawing.Size(346, 348);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panelProperties);
             this.Controls.Add(this.listLights);
@@ -291,6 +325,9 @@
         private System.Windows.Forms.TextBox textHex;
         private System.Windows.Forms.Label lblHex;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonInterpolate;
+        private System.Windows.Forms.CheckBox checkInterpolate;
     }
 }
 
