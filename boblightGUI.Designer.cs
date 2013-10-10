@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panelNetwork = new System.Windows.Forms.Panel();
+            this.textPriority = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.textPort = new System.Windows.Forms.TextBox();
@@ -37,16 +39,14 @@
             this.lblIP = new System.Windows.Forms.Label();
             this.listLights = new System.Windows.Forms.ListBox();
             this.panelProperties = new System.Windows.Forms.Panel();
-            this.textHex = new System.Windows.Forms.TextBox();
-            this.lblHex = new System.Windows.Forms.Label();
-            this.buttonColor = new System.Windows.Forms.Button();
+            this.buttonUse = new System.Windows.Forms.Button();
+            this.checkUse = new System.Windows.Forms.CheckBox();
+            this.buttonSpeed = new System.Windows.Forms.Button();
             this.textSpeed = new System.Windows.Forms.TextBox();
             this.lblSpeed = new System.Windows.Forms.Label();
-            this.buttonSpeed = new System.Windows.Forms.Button();
-            this.textPriority = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.checkUse = new System.Windows.Forms.CheckBox();
-            this.buttonUse = new System.Windows.Forms.Button();
+            this.buttonColor = new System.Windows.Forms.Button();
+            this.textHex = new System.Windows.Forms.TextBox();
+            this.lblHex = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panelNetwork.SuspendLayout();
             this.panelProperties.SuspendLayout();
@@ -67,12 +67,29 @@
             this.panelNetwork.Size = new System.Drawing.Size(178, 105);
             this.panelNetwork.TabIndex = 0;
             // 
+            // textPriority
+            // 
+            this.textPriority.Location = new System.Drawing.Point(50, 55);
+            this.textPriority.Name = "textPriority";
+            this.textPriority.Size = new System.Drawing.Size(125, 20);
+            this.textPriority.TabIndex = 3;
+            this.textPriority.Text = "128";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 58);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Priority:";
+            // 
             // buttonConnect
             // 
             this.buttonConnect.Location = new System.Drawing.Point(82, 80);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(93, 23);
-            this.buttonConnect.TabIndex = 5;
+            this.buttonConnect.TabIndex = 4;
             this.buttonConnect.Text = "Connect";
             this.buttonConnect.UseVisualStyleBackColor = true;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
@@ -91,7 +108,7 @@
             this.textPort.Location = new System.Drawing.Point(38, 29);
             this.textPort.Name = "textPort";
             this.textPort.Size = new System.Drawing.Size(137, 20);
-            this.textPort.TabIndex = 3;
+            this.textPort.TabIndex = 2;
             this.textPort.Text = "19333";
             // 
             // textIP
@@ -99,7 +116,7 @@
             this.textIP.Location = new System.Drawing.Point(29, 3);
             this.textIP.Name = "textIP";
             this.textIP.Size = new System.Drawing.Size(146, 20);
-            this.textIP.TabIndex = 2;
+            this.textIP.TabIndex = 1;
             this.textIP.Text = "127.0.0.1";
             // 
             // lblPort
@@ -128,7 +145,7 @@
             this.listLights.Name = "listLights";
             this.listLights.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listLights.Size = new System.Drawing.Size(138, 290);
-            this.listLights.TabIndex = 1;
+            this.listLights.TabIndex = 5;
             // 
             // panelProperties
             // 
@@ -146,39 +163,44 @@
             this.panelProperties.Size = new System.Drawing.Size(178, 145);
             this.panelProperties.TabIndex = 2;
             // 
-            // textHex
+            // buttonUse
             // 
-            this.textHex.Location = new System.Drawing.Point(38, 3);
-            this.textHex.Name = "textHex";
-            this.textHex.Size = new System.Drawing.Size(137, 20);
-            this.textHex.TabIndex = 7;
-            this.textHex.Text = "FFFFFF";
+            this.buttonUse.Location = new System.Drawing.Point(91, 117);
+            this.buttonUse.Name = "buttonUse";
+            this.buttonUse.Size = new System.Drawing.Size(84, 25);
+            this.buttonUse.TabIndex = 11;
+            this.buttonUse.Text = "Set Use";
+            this.buttonUse.UseVisualStyleBackColor = true;
+            this.buttonUse.Click += new System.EventHandler(this.buttonUse_Click);
             // 
-            // lblHex
+            // checkUse
             // 
-            this.lblHex.AutoSize = true;
-            this.lblHex.Location = new System.Drawing.Point(3, 6);
-            this.lblHex.Name = "lblHex";
-            this.lblHex.Size = new System.Drawing.Size(29, 13);
-            this.lblHex.TabIndex = 6;
-            this.lblHex.Text = "Hex:";
+            this.checkUse.AutoSize = true;
+            this.checkUse.Checked = true;
+            this.checkUse.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkUse.Location = new System.Drawing.Point(3, 121);
+            this.checkUse.Name = "checkUse";
+            this.checkUse.Size = new System.Drawing.Size(82, 17);
+            this.checkUse.TabIndex = 10;
+            this.checkUse.Text = "Use Light(s)";
+            this.checkUse.UseVisualStyleBackColor = true;
             // 
-            // buttonColor
+            // buttonSpeed
             // 
-            this.buttonColor.Location = new System.Drawing.Point(3, 29);
-            this.buttonColor.Name = "buttonColor";
-            this.buttonColor.Size = new System.Drawing.Size(172, 25);
-            this.buttonColor.TabIndex = 8;
-            this.buttonColor.Text = "Set Color";
-            this.buttonColor.UseVisualStyleBackColor = true;
-            this.buttonColor.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonSpeed.Location = new System.Drawing.Point(3, 86);
+            this.buttonSpeed.Name = "buttonSpeed";
+            this.buttonSpeed.Size = new System.Drawing.Size(172, 25);
+            this.buttonSpeed.TabIndex = 9;
+            this.buttonSpeed.Text = "Set Speed";
+            this.buttonSpeed.UseVisualStyleBackColor = true;
+            this.buttonSpeed.Click += new System.EventHandler(this.buttonSpeed_Click);
             // 
             // textSpeed
             // 
             this.textSpeed.Location = new System.Drawing.Point(50, 60);
             this.textSpeed.Name = "textSpeed";
             this.textSpeed.Size = new System.Drawing.Size(125, 20);
-            this.textSpeed.TabIndex = 10;
+            this.textSpeed.TabIndex = 8;
             this.textSpeed.Text = "100.0";
             // 
             // lblSpeed
@@ -190,54 +212,32 @@
             this.lblSpeed.TabIndex = 9;
             this.lblSpeed.Text = "Speed:";
             // 
-            // buttonSpeed
+            // buttonColor
             // 
-            this.buttonSpeed.Location = new System.Drawing.Point(3, 86);
-            this.buttonSpeed.Name = "buttonSpeed";
-            this.buttonSpeed.Size = new System.Drawing.Size(172, 25);
-            this.buttonSpeed.TabIndex = 11;
-            this.buttonSpeed.Text = "Set Speed";
-            this.buttonSpeed.UseVisualStyleBackColor = true;
-            this.buttonSpeed.Click += new System.EventHandler(this.buttonSpeed_Click);
+            this.buttonColor.Location = new System.Drawing.Point(3, 29);
+            this.buttonColor.Name = "buttonColor";
+            this.buttonColor.Size = new System.Drawing.Size(172, 25);
+            this.buttonColor.TabIndex = 7;
+            this.buttonColor.Text = "Set Color";
+            this.buttonColor.UseVisualStyleBackColor = true;
+            this.buttonColor.Click += new System.EventHandler(this.buttonColor_Click);
             // 
-            // textPriority
+            // textHex
             // 
-            this.textPriority.Location = new System.Drawing.Point(50, 55);
-            this.textPriority.Name = "textPriority";
-            this.textPriority.Size = new System.Drawing.Size(125, 20);
-            this.textPriority.TabIndex = 7;
-            this.textPriority.Text = "128";
+            this.textHex.Location = new System.Drawing.Point(38, 3);
+            this.textHex.Name = "textHex";
+            this.textHex.Size = new System.Drawing.Size(137, 20);
+            this.textHex.TabIndex = 6;
+            this.textHex.Text = "FFFFFF";
             // 
-            // label3
+            // lblHex
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Priority:";
-            // 
-            // checkUse
-            // 
-            this.checkUse.AutoSize = true;
-            this.checkUse.Checked = true;
-            this.checkUse.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkUse.Location = new System.Drawing.Point(3, 121);
-            this.checkUse.Name = "checkUse";
-            this.checkUse.Size = new System.Drawing.Size(82, 17);
-            this.checkUse.TabIndex = 12;
-            this.checkUse.Text = "Use Light(s)";
-            this.checkUse.UseVisualStyleBackColor = true;
-            // 
-            // buttonUse
-            // 
-            this.buttonUse.Location = new System.Drawing.Point(91, 117);
-            this.buttonUse.Name = "buttonUse";
-            this.buttonUse.Size = new System.Drawing.Size(84, 25);
-            this.buttonUse.TabIndex = 13;
-            this.buttonUse.Text = "Set Use";
-            this.buttonUse.UseVisualStyleBackColor = true;
-            this.buttonUse.Click += new System.EventHandler(this.buttonUse_Click);
+            this.lblHex.AutoSize = true;
+            this.lblHex.Location = new System.Drawing.Point(3, 6);
+            this.lblHex.Name = "lblHex";
+            this.lblHex.Size = new System.Drawing.Size(29, 13);
+            this.lblHex.TabIndex = 6;
+            this.lblHex.Text = "Hex:";
             // 
             // label1
             // 
@@ -257,6 +257,7 @@
             this.Controls.Add(this.panelProperties);
             this.Controls.Add(this.listLights);
             this.Controls.Add(this.panelNetwork);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "boblightGUI";
             this.Text = "boblight-NET";
             this.panelNetwork.ResumeLayout(false);
