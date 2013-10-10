@@ -9,6 +9,7 @@ namespace boblight_net
     {
         private string name = null;
         private float hscan_min, hscan_max, vscan_min, vscan_max = 0.0F;
+        private bool inUse = true;
         public light(string blname, float blvscan_min, float blvscan_max, float blhscan_min, float blhscan_max)
         {
             name = blname;
@@ -41,6 +42,16 @@ namespace boblight_net
         public float getVmin()
         {
             return vscan_min;
+        }
+
+        public bool use()
+        {
+            return inUse;
+        }
+
+        public void setUse(bool use)
+        {
+            inUse = use;
         }
     }
 
@@ -107,12 +118,15 @@ namespace boblight_net
 
         public void setColor(light light, string color, float brightness)
         {
-            //set a light via hex color
-            float red_f, green_f, blue_f = 0.0F;
-            red_f = calculateBobColor(Int32.Parse(color.Substring(0, 2), System.Globalization.NumberStyles.HexNumber), brightness);
-            green_f = calculateBobColor(Int32.Parse(color.Substring(2, 2), System.Globalization.NumberStyles.HexNumber), brightness);
-            blue_f = calculateBobColor(Int32.Parse(color.Substring(4, 2), System.Globalization.NumberStyles.HexNumber), brightness);
-            sendColor(light.getName(), red_f, green_f, blue_f);
+            if (light.use())
+            {
+                //set a light via hex color
+                float red_f, green_f, blue_f = 0.0F;
+                red_f = calculateBobColor(Int32.Parse(color.Substring(0, 2), System.Globalization.NumberStyles.HexNumber), brightness);
+                green_f = calculateBobColor(Int32.Parse(color.Substring(2, 2), System.Globalization.NumberStyles.HexNumber), brightness);
+                blue_f = calculateBobColor(Int32.Parse(color.Substring(4, 2), System.Globalization.NumberStyles.HexNumber), brightness);
+                sendColor(light.getName(), red_f, green_f, blue_f);
+            }
         }
 
         public void setColor(light[] lights, string color, float brightness)
@@ -124,18 +138,22 @@ namespace boblight_net
             blue_f = calculateBobColor(Int32.Parse(color.Substring(4, 2), System.Globalization.NumberStyles.HexNumber), brightness);
             foreach (light light in lights)
             {
-                sendColor(light.getName(), red_f, green_f, blue_f);
+                if (light.use())
+                    sendColor(light.getName(), red_f, green_f, blue_f);
             }
         }
 
         public void setColor(light light, int red, int green, int blue, float brightness)
         {
-            //set light via r/g/b colors
-            float red_f, green_f, blue_f = 0.0F;
-            red_f = calculateBobColor(red, brightness);
-            green_f = calculateBobColor(green, brightness);
-            blue_f = calculateBobColor(blue, brightness);
-            sendColor(light.getName(), red_f, green_f, blue_f);
+            if (light.use())
+            {
+                //set light via r/g/b colors
+                float red_f, green_f, blue_f = 0.0F;
+                red_f = calculateBobColor(red, brightness);
+                green_f = calculateBobColor(green, brightness);
+                blue_f = calculateBobColor(blue, brightness);
+                sendColor(light.getName(), red_f, green_f, blue_f);
+            }
         }
 
         public void setColor(light[] lights, int red, int green, int blue, float brightness)
@@ -147,7 +165,8 @@ namespace boblight_net
             blue_f = calculateBobColor(blue, brightness);
             foreach (light light in lights)
             {
-                sendColor(light.getName(), red_f, green_f, blue_f);
+                if (light.use())
+                    sendColor(light.getName(), red_f, green_f, blue_f);
             }
         }
 
@@ -166,7 +185,8 @@ namespace boblight_net
         public void setSpeed(light light, float speed)
         {
             //set speed of light
-            sendSpeed(light.getName(), speed);
+            if (light.use())
+                sendSpeed(light.getName(), speed);
         }
 
         public void setSpeed(light[] lights, float speed)
@@ -174,7 +194,8 @@ namespace boblight_net
             //set speed of array of lights
             foreach (light light in lights)
             {
-                sendSpeed(light.getName(), speed);
+                if(light.use())
+                    sendSpeed(light.getName(), speed);
             }
         }
 
@@ -187,6 +208,7 @@ namespace boblight_net
         public void setUse(light light, bool use)
         {
             //set use of light
+            light.setUse(use);
             sendUse(light.getName(), use);
         }
 
@@ -195,6 +217,7 @@ namespace boblight_net
             //set use of array of lights
             foreach (light light in lights)
             {
+                light.setUse(use);
                 sendUse(light.getName(), use);
             }
         }
@@ -202,7 +225,7 @@ namespace boblight_net
         private void sendUse(string light, bool use)
         {
             //boblightd version 5 set light use
-            sendData("set light " + light + " use " + use.ToString() + "\n");
+            sendData("set light " + light + " use " + use.ToString().ToLower() + "\n");
         }
 
         public void syncLights()
