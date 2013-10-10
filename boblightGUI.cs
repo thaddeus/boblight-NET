@@ -27,6 +27,9 @@ namespace boblight_net
                 {
                     panelProperties.Enabled = true;
                     listLights.Enabled = true;
+                    textIP.Enabled = false;
+                    textPort.Enabled = false;
+                    textPriority.Enabled = false;
                     lblStatus.Text = "Connected";
                     buttonConnect.Text = "Disconnect";
                     foreach (light light in client.getLights())
@@ -41,6 +44,9 @@ namespace boblight_net
                 listLights.Items.Clear();
                 panelProperties.Enabled = false;
                 listLights.Enabled = false;
+                textIP.Enabled = true;
+                textPort.Enabled = true;
+                textPriority.Enabled = true;
                 lblStatus.Text = "Disconnected";
                 buttonConnect.Text = "Connect";
             }
