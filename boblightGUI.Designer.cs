@@ -30,7 +30,7 @@
         {
             this.panelNetwork = new System.Windows.Forms.Panel();
             this.textPriority = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblPriority = new System.Windows.Forms.Label();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.textPort = new System.Windows.Forms.TextBox();
@@ -39,6 +39,8 @@
             this.lblIP = new System.Windows.Forms.Label();
             this.listLights = new System.Windows.Forms.ListBox();
             this.panelProperties = new System.Windows.Forms.Panel();
+            this.buttonInterpolate = new System.Windows.Forms.Button();
+            this.checkInterpolate = new System.Windows.Forms.CheckBox();
             this.buttonUse = new System.Windows.Forms.Button();
             this.checkUse = new System.Windows.Forms.CheckBox();
             this.buttonSpeed = new System.Windows.Forms.Button();
@@ -47,25 +49,30 @@
             this.buttonColor = new System.Windows.Forms.Button();
             this.textHex = new System.Windows.Forms.TextBox();
             this.lblHex = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.buttonInterpolate = new System.Windows.Forms.Button();
-            this.checkInterpolate = new System.Windows.Forms.CheckBox();
+            this.lblAbout = new System.Windows.Forms.Label();
+            this.tabsControl = new System.Windows.Forms.TabControl();
+            this.tabLights = new System.Windows.Forms.TabPage();
+            this.tabGroups = new System.Windows.Forms.TabPage();
+            this.listGroups = new System.Windows.Forms.ListBox();
+            this.buttonMisc = new System.Windows.Forms.Button();
             this.panelNetwork.SuspendLayout();
             this.panelProperties.SuspendLayout();
+            this.tabsControl.SuspendLayout();
+            this.tabLights.SuspendLayout();
+            this.tabGroups.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelNetwork
             // 
             this.panelNetwork.Controls.Add(this.textPriority);
-            this.panelNetwork.Controls.Add(this.label3);
+            this.panelNetwork.Controls.Add(this.lblPriority);
             this.panelNetwork.Controls.Add(this.buttonConnect);
             this.panelNetwork.Controls.Add(this.lblStatus);
             this.panelNetwork.Controls.Add(this.textPort);
             this.panelNetwork.Controls.Add(this.textIP);
             this.panelNetwork.Controls.Add(this.lblPort);
             this.panelNetwork.Controls.Add(this.lblIP);
-            this.panelNetwork.Location = new System.Drawing.Point(156, 12);
+            this.panelNetwork.Location = new System.Drawing.Point(173, 12);
             this.panelNetwork.Name = "panelNetwork";
             this.panelNetwork.Size = new System.Drawing.Size(178, 105);
             this.panelNetwork.TabIndex = 0;
@@ -78,14 +85,14 @@
             this.textPriority.TabIndex = 3;
             this.textPriority.Text = "128";
             // 
-            // label3
+            // lblPriority
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Priority:";
+            this.lblPriority.AutoSize = true;
+            this.lblPriority.Location = new System.Drawing.Point(3, 58);
+            this.lblPriority.Name = "lblPriority";
+            this.lblPriority.Size = new System.Drawing.Size(41, 13);
+            this.lblPriority.TabIndex = 6;
+            this.lblPriority.Text = "Priority:";
             // 
             // buttonConnect
             // 
@@ -142,12 +149,11 @@
             // 
             // listLights
             // 
-            this.listLights.Enabled = false;
             this.listLights.FormattingEnabled = true;
-            this.listLights.Location = new System.Drawing.Point(12, 33);
+            this.listLights.Location = new System.Drawing.Point(3, 6);
             this.listLights.Name = "listLights";
             this.listLights.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listLights.Size = new System.Drawing.Size(138, 303);
+            this.listLights.Size = new System.Drawing.Size(141, 251);
             this.listLights.TabIndex = 5;
             // 
             // panelProperties
@@ -163,10 +169,29 @@
             this.panelProperties.Controls.Add(this.textHex);
             this.panelProperties.Controls.Add(this.lblHex);
             this.panelProperties.Enabled = false;
-            this.panelProperties.Location = new System.Drawing.Point(156, 123);
+            this.panelProperties.Location = new System.Drawing.Point(173, 123);
             this.panelProperties.Name = "panelProperties";
             this.panelProperties.Size = new System.Drawing.Size(178, 177);
             this.panelProperties.TabIndex = 2;
+            // 
+            // buttonInterpolate
+            // 
+            this.buttonInterpolate.Location = new System.Drawing.Point(82, 117);
+            this.buttonInterpolate.Name = "buttonInterpolate";
+            this.buttonInterpolate.Size = new System.Drawing.Size(93, 25);
+            this.buttonInterpolate.TabIndex = 11;
+            this.buttonInterpolate.Text = "Set Interpolation";
+            this.buttonInterpolate.UseVisualStyleBackColor = true;
+            // 
+            // checkInterpolate
+            // 
+            this.checkInterpolate.AutoSize = true;
+            this.checkInterpolate.Location = new System.Drawing.Point(3, 121);
+            this.checkInterpolate.Name = "checkInterpolate";
+            this.checkInterpolate.Size = new System.Drawing.Size(76, 17);
+            this.checkInterpolate.TabIndex = 10;
+            this.checkInterpolate.Text = "Interpolate";
+            this.checkInterpolate.UseVisualStyleBackColor = true;
             // 
             // buttonUse
             // 
@@ -244,52 +269,79 @@
             this.lblHex.TabIndex = 6;
             this.lblHex.Text = "Hex:";
             // 
-            // label1
+            // lblAbout
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(158, 316);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "boblight-NET for boblightd version 5";
+            this.lblAbout.AutoSize = true;
+            this.lblAbout.Location = new System.Drawing.Point(173, 312);
+            this.lblAbout.Name = "lblAbout";
+            this.lblAbout.Size = new System.Drawing.Size(176, 13);
+            this.lblAbout.TabIndex = 3;
+            this.lblAbout.Text = "boblight-NET for boblightd version 5";
             // 
-            // label2
+            // tabsControl
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Lights:";
+            this.tabsControl.Controls.Add(this.tabLights);
+            this.tabsControl.Controls.Add(this.tabGroups);
+            this.tabsControl.Enabled = false;
+            this.tabsControl.Location = new System.Drawing.Point(12, 12);
+            this.tabsControl.Name = "tabsControl";
+            this.tabsControl.SelectedIndex = 0;
+            this.tabsControl.Size = new System.Drawing.Size(155, 288);
+            this.tabsControl.TabIndex = 7;
+            this.tabsControl.SelectedIndexChanged += new System.EventHandler(this.tabsControl_SelectedIndexChanged);
             // 
-            // buttonInterpolate
+            // tabLights
             // 
-            this.buttonInterpolate.Location = new System.Drawing.Point(82, 117);
-            this.buttonInterpolate.Name = "buttonInterpolate";
-            this.buttonInterpolate.Size = new System.Drawing.Size(93, 25);
-            this.buttonInterpolate.TabIndex = 11;
-            this.buttonInterpolate.Text = "Set Interpolation";
-            this.buttonInterpolate.UseVisualStyleBackColor = true;
+            this.tabLights.Controls.Add(this.listLights);
+            this.tabLights.Location = new System.Drawing.Point(4, 22);
+            this.tabLights.Name = "tabLights";
+            this.tabLights.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLights.Size = new System.Drawing.Size(147, 262);
+            this.tabLights.TabIndex = 0;
+            this.tabLights.Text = "Lights";
+            this.tabLights.UseVisualStyleBackColor = true;
             // 
-            // checkInterpolate
+            // tabGroups
             // 
-            this.checkInterpolate.AutoSize = true;
-            this.checkInterpolate.Location = new System.Drawing.Point(3, 121);
-            this.checkInterpolate.Name = "checkInterpolate";
-            this.checkInterpolate.Size = new System.Drawing.Size(76, 17);
-            this.checkInterpolate.TabIndex = 10;
-            this.checkInterpolate.Text = "Interpolate";
-            this.checkInterpolate.UseVisualStyleBackColor = true;
+            this.tabGroups.Controls.Add(this.listGroups);
+            this.tabGroups.Location = new System.Drawing.Point(4, 22);
+            this.tabGroups.Name = "tabGroups";
+            this.tabGroups.Padding = new System.Windows.Forms.Padding(3);
+            this.tabGroups.Size = new System.Drawing.Size(147, 262);
+            this.tabGroups.TabIndex = 1;
+            this.tabGroups.Text = "Light Groups";
+            this.tabGroups.UseVisualStyleBackColor = true;
+            // 
+            // listGroups
+            // 
+            this.listGroups.DisplayMember = "name";
+            this.listGroups.FormattingEnabled = true;
+            this.listGroups.Location = new System.Drawing.Point(3, 6);
+            this.listGroups.Name = "listGroups";
+            this.listGroups.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listGroups.Size = new System.Drawing.Size(141, 251);
+            this.listGroups.TabIndex = 8;
+            this.listGroups.ValueMember = "lights";
+            // 
+            // buttonMisc
+            // 
+            this.buttonMisc.Location = new System.Drawing.Point(12, 306);
+            this.buttonMisc.Name = "buttonMisc";
+            this.buttonMisc.Size = new System.Drawing.Size(155, 25);
+            this.buttonMisc.TabIndex = 14;
+            this.buttonMisc.Text = "Group Lights";
+            this.buttonMisc.UseVisualStyleBackColor = true;
+            this.buttonMisc.Click += new System.EventHandler(this.buttonMisc_Click);
             // 
             // boblightGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 348);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(361, 342);
+            this.Controls.Add(this.buttonMisc);
+            this.Controls.Add(this.tabsControl);
+            this.Controls.Add(this.lblAbout);
             this.Controls.Add(this.panelProperties);
-            this.Controls.Add(this.listLights);
             this.Controls.Add(this.panelNetwork);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "boblightGUI";
@@ -298,6 +350,9 @@
             this.panelNetwork.PerformLayout();
             this.panelProperties.ResumeLayout(false);
             this.panelProperties.PerformLayout();
+            this.tabsControl.ResumeLayout(false);
+            this.tabLights.ResumeLayout(false);
+            this.tabGroups.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -315,7 +370,7 @@
         private System.Windows.Forms.ListBox listLights;
         private System.Windows.Forms.Panel panelProperties;
         private System.Windows.Forms.TextBox textPriority;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblPriority;
         private System.Windows.Forms.Button buttonUse;
         private System.Windows.Forms.CheckBox checkUse;
         private System.Windows.Forms.Button buttonSpeed;
@@ -324,10 +379,14 @@
         private System.Windows.Forms.Button buttonColor;
         private System.Windows.Forms.TextBox textHex;
         private System.Windows.Forms.Label lblHex;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblAbout;
         private System.Windows.Forms.Button buttonInterpolate;
         private System.Windows.Forms.CheckBox checkInterpolate;
+        private System.Windows.Forms.TabControl tabsControl;
+        private System.Windows.Forms.TabPage tabLights;
+        private System.Windows.Forms.TabPage tabGroups;
+        private System.Windows.Forms.ListBox listGroups;
+        private System.Windows.Forms.Button buttonMisc;
     }
 }
 

@@ -55,6 +55,18 @@ namespace boblight_net
         }
     }
 
+    public class lightGroup
+    {
+        public light[] lights { get; set; }
+        public string name { get; set; }
+
+        public lightGroup(light[] lights, string name)
+        {
+            this.lights = lights;
+            this.name = name;
+        }
+    }
+
     public class boblightClient
     {
         private Socket lightSocket = null;

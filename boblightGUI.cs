@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace boblight_net
 {
@@ -26,7 +27,7 @@ namespace boblight_net
                 if (client.isConnected())
                 {
                     panelProperties.Enabled = true;
-                    listLights.Enabled = true;
+                    tabsControl.Enabled = true;
                     textIP.Enabled = false;
                     textPort.Enabled = false;
                     textPriority.Enabled = false;
@@ -43,7 +44,7 @@ namespace boblight_net
                 client.disconnect();
                 listLights.Items.Clear();
                 panelProperties.Enabled = false;
-                listLights.Enabled = false;
+                tabsControl.Enabled = false;
                 textIP.Enabled = true;
                 textPort.Enabled = true;
                 textPriority.Enabled = true;
@@ -54,17 +55,33 @@ namespace boblight_net
 
         private light[] getSelectedLights()
         {
-            light[] lights = new light[listLights.SelectedIndices.Count];
-            int i = 0;
-            foreach (light light in client.getLights())
+            if (tabsControl.SelectedIndex == tabLights.TabIndex)
             {
-                if(listLights.SelectedItems.Contains(light.getName()))
+                light[] lights = new light[listLights.SelectedIndices.Count];
+                int i = 0;
+                foreach (light light in client.getLights())
                 {
-                    lights[i] = light;
-                    i++;
+                    if (listLights.SelectedItems.Contains(light.getName()))
+                    {
+                        lights[i] = light;
+                        i++;
+                    }
                 }
+                return lights;
             }
-            return lights;
+            else
+            {
+                ICollection<light> lightsCollection = new List<light>();
+                foreach (lightGroup lGroup in listGroups.SelectedItems)
+                {
+                    foreach (light light in lGroup.lights)
+                    {
+                        lightsCollection.Add(light);
+                    }
+                }
+                return lightsCollection.ToArray();
+            }
+            
         }
 
         private void buttonColor_Click(object sender, EventArgs e)
@@ -83,6 +100,35 @@ namespace boblight_net
         {
             client.setUse(getSelectedLights(), checkUse.Checked);
             client.syncLights();
+        }
+
+        private void tabsControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabsControl.SelectedIndex == tabLights.TabIndex)
+            {
+                buttonMisc.Text = "Group Lights";
+            }
+            else if (tabsControl.SelectedIndex == tabGroups.TabIndex)
+            {
+                buttonMisc.Text = "Delete Group";
+            }
+        }
+
+        private void buttonMisc_Click(object sender, EventArgs e)
+        {
+            if (tabsControl.SelectedIndex == tabLights.TabIndex)
+            {
+                string groupName = Interaction.InputBox("Please enter a name for this light group:", "New Light Group");
+                listGroups.Items.Add(new lightGroup(getSelectedLights(), groupName));
+                tabsControl.SelectedIndex = tabGroups.TabIndex;
+            }
+            else if(tabsControl.SelectedIndex == tabGroups.TabIndex)
+            {
+                while (listGroups.SelectedItems.Count != 0)
+                {
+                    listGroups.Items.Remove(listGroups.SelectedItems[0]);
+                }
+            }
         }
     }
 }
