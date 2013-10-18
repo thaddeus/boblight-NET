@@ -325,6 +325,7 @@
             // 
             // buttonMisc
             // 
+            this.buttonMisc.Enabled = false;
             this.buttonMisc.Location = new System.Drawing.Point(12, 306);
             this.buttonMisc.Name = "buttonMisc";
             this.buttonMisc.Size = new System.Drawing.Size(155, 25);

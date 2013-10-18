@@ -28,6 +28,7 @@ namespace boblight_net
                 {
                     panelProperties.Enabled = true;
                     tabsControl.Enabled = true;
+                    buttonMisc.Enabled = true;
                     textIP.Enabled = false;
                     textPort.Enabled = false;
                     textPriority.Enabled = false;
@@ -45,6 +46,7 @@ namespace boblight_net
                 listLights.Items.Clear();
                 panelProperties.Enabled = false;
                 tabsControl.Enabled = false;
+                buttonMisc.Enabled = false;
                 textIP.Enabled = true;
                 textPort.Enabled = true;
                 textPriority.Enabled = true;
@@ -119,8 +121,11 @@ namespace boblight_net
             if (tabsControl.SelectedIndex == tabLights.TabIndex)
             {
                 string groupName = Interaction.InputBox("Please enter a name for this light group:", "New Light Group");
-                listGroups.Items.Add(new lightGroup(getSelectedLights(), groupName));
-                tabsControl.SelectedIndex = tabGroups.TabIndex;
+                if (!String.IsNullOrWhiteSpace(groupName) && listLights.SelectedItems.Count != 0)
+                {
+                    listGroups.Items.Add(new lightGroup(getSelectedLights(), groupName));
+                    tabsControl.SelectedIndex = tabGroups.TabIndex;
+                }
             }
             else if(tabsControl.SelectedIndex == tabGroups.TabIndex)
             {
