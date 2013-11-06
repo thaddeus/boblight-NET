@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using System.Xml;
 
 namespace boblight_net
 {
@@ -17,6 +18,17 @@ namespace boblight_net
         public boblightGUI()
         {
             InitializeComponent();
+            XmlReader reader = XmlReader.Create("bobClient.xml");
+
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "Server")
+                {
+                    textIP.Text = reader.GetAttribute("IP");
+                    textPort.Text = reader.GetAttribute("Port");
+                    textPriority.Text = reader.GetAttribute("Priority");
+                }
+            }
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
@@ -34,6 +46,20 @@ namespace boblight_net
                     textPriority.Enabled = false;
                     lblStatus.Text = "Connected";
                     buttonConnect.Text = "Disconnect";
+                    XmlWriterSettings settings = new XmlWriterSettings();
+                    settings.Indent = true;
+                    XmlWriter writer = XmlWriter.Create("bobClient.xml", settings);
+                    writer.WriteStartDocument();
+                    writer.WriteComment("Last used boblightConfiguration");
+                    writer.WriteStartElement("Server");
+                    writer.WriteAttributeString("IP", textIP.Text);
+                    writer.WriteAttributeString("Port", textPort.Text);
+                    writer.WriteAttributeString("Priority", textPriority.Text);
+                    writer.WriteEndElement();
+                    writer.WriteEndDocument();
+
+                    writer.Flush();
+                    writer.Close();
                     foreach (light light in client.getLights())
                     {
                         listLights.Items.Add(light.getName());
