@@ -83,8 +83,7 @@ namespace boblight_net
                     lastServ.Attributes["Port"].Value = textPort.Text;
                     lastServ.Attributes["Priority"].Value = textPriority.Text;
                     //Look for a server node that matches our IP and Port (assuming the client isn't really going to be ported)
-                    root = root.SelectSingleNode("Servers");
-                    XmlNode myServ = root.SelectSingleNode("Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']");
+                    XmlNode myServ = root.SelectSingleNode("Servers/Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']");
                     if (myServ != null)
                     {
                         //Config exists, check it
@@ -139,20 +138,37 @@ namespace boblight_net
                             newLights.AppendChild(newLight);
                         }
                         newServer.AppendChild(newLights);
+                        XmlElement newGroups = doc.CreateElement("LightGroups");
+                        newServer.AppendChild(newGroups);
                         root.AppendChild(newServer);
+                        
                     }
                     
                     
                     foreach (light light in client.getLights())
                     {
                         listLights.Items.Add(light.getName());
-                        XmlNode lightNode = root.SelectSingleNode("Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/Lights/Light[@Name='" + light.getName() + "']");
-                        client.setUse(light, bool.Parse(lightNode.Attributes["Use"].Value));
+                        XmlNode lightNode = root.SelectSingleNode("Servers/Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/Lights/Light[@Name='" + light.getName() + "']");
                         client.setInterpolation(light, bool.Parse(lightNode.Attributes["Interpolate"].Value));
                         client.setSpeed(light, float.Parse(lightNode.Attributes["Speed"].Value));
                         client.setColor(light, lightNode.Attributes["Color"].Value);
+                        client.setUse(light, bool.Parse(lightNode.Attributes["Use"].Value));
                     }
                     client.syncLights();
+
+                    foreach(XmlNode groupNode in doc.DocumentElement.SelectNodes("Servers/Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/LightGroups/Group"))
+                    {
+                        ICollection<light> lightsCollection = new List<light>();
+                        foreach (XmlNode lightNode in groupNode.ChildNodes)
+                        {
+                            foreach (light light in client.getLights())
+                            {
+                                if (light.getName() == lightNode.Attributes["Name"].Value)
+                                    lightsCollection.Add(light);
+                            }
+                        }
+                        listGroups.Items.Add(new lightGroup(lightsCollection.ToArray(), groupNode.Attributes["Name"].Value));
+                    }
 
                     //Save configuration file
                     doc.Save("bobClient.xml");
@@ -162,6 +178,7 @@ namespace boblight_net
             {
                 client.disconnect();
                 listLights.Items.Clear();
+                listGroups.Items.Clear();
                 panelProperties.Enabled = false;
                 tabsControl.Enabled = false;
                 buttonMisc.Enabled = false;
@@ -215,12 +232,10 @@ namespace boblight_net
 
             //Get to the beginning of things
             XmlNode root = doc.DocumentElement;
-            root = root.SelectSingleNode("Servers");
 
             foreach (light light in getSelectedLights())
             {
-                string selectString = "Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/Lights/Light[@Name='" + light.getName() + "']";
-                XmlNode lightNode = root.SelectSingleNode(selectString);
+                XmlNode lightNode = root.SelectSingleNode("Servers/Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/Lights/Light[@Name='" + light.getName() + "']");
                 lightNode.Attributes["Color"].Value = textHex.Text;
             }
 
@@ -239,12 +254,10 @@ namespace boblight_net
 
             //Get to the beginning of things
             XmlNode root = doc.DocumentElement;
-            root = root.SelectSingleNode("Servers");
 
             foreach (light light in getSelectedLights())
             {
-                string selectString = "Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/Lights/Light[@Name='" + light.getName() + "']";
-                XmlNode lightNode = root.SelectSingleNode(selectString);
+                XmlNode lightNode = root.SelectSingleNode("Servers/Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/Lights/Light[@Name='" + light.getName() + "']");
                 lightNode.Attributes["Speed"].Value = textSpeed.Text;
             }
 
@@ -262,12 +275,10 @@ namespace boblight_net
 
             //Get to the beginning of things
             XmlNode root = doc.DocumentElement;
-            root = root.SelectSingleNode("Servers");
 
             foreach (light light in getSelectedLights())
             {
-                string selectString = "Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/Lights/Light[@Name='" + light.getName() + "']";
-                XmlNode lightNode = root.SelectSingleNode(selectString);
+                XmlNode lightNode = root.SelectSingleNode("Servers/Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/Lights/Light[@Name='" + light.getName() + "']");
                 lightNode.Attributes["Use"].Value = checkUse.Checked.ToString();
             }
 
@@ -294,15 +305,53 @@ namespace boblight_net
                 if (!String.IsNullOrWhiteSpace(groupName) && listLights.SelectedItems.Count != 0)
                 {
                     listGroups.Items.Add(new lightGroup(getSelectedLights(), groupName));
+
+                    //Add group to config file
+                    //Update configuration
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load("bobClient.xml");
+
+                    //Get to the beginning of things
+                    XmlNode root = doc.DocumentElement;
+                    root = root.SelectSingleNode("Servers/Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/LightGroups");
+
+                    XmlElement newGroup = doc.CreateElement("Group");
+                    newGroup.SetAttribute("Name", groupName);
+
+                    foreach (light light in getSelectedLights())
+                    {
+                        XmlElement newGroupLight = doc.CreateElement("Light");
+                        newGroupLight.SetAttribute("Name", light.getName());
+                        newGroup.AppendChild(newGroupLight);
+                    }
+
+                    root.AppendChild(newGroup);
+
+                    doc.Save("bobClient.xml");
+
                     tabsControl.SelectedIndex = tabGroups.TabIndex;
                 }
             }
             else if(tabsControl.SelectedIndex == tabGroups.TabIndex)
             {
+                //Add group to config file
+                //Update configuration
+                XmlDocument doc = new XmlDocument();
+                doc.Load("bobClient.xml");
+
+                foreach(lightGroup lGroup in listGroups.SelectedItems)
+                {
+                    XmlNode root = doc.DocumentElement;
+                    root = root.SelectSingleNode("Servers/Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/LightGroups/Group[@Name='" + lGroup.name + "']");
+                    root.ParentNode.RemoveChild(root);
+                }
+
                 while (listGroups.SelectedItems.Count != 0)
                 {
                     listGroups.Items.Remove(listGroups.SelectedItems[0]);
                 }
+
+                doc.Save("bobClient.xml");
             }
         }
     }
