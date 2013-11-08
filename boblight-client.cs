@@ -128,7 +128,7 @@ namespace boblight_net
             }
         }
 
-        public void setColor(light light, string color, float brightness)
+        public void setColor(light light, string color, float brightness = 1.0F)
         {
             if (light.use())
             {
@@ -141,7 +141,7 @@ namespace boblight_net
             }
         }
 
-        public void setColor(light[] lights, string color, float brightness)
+        public void setColor(light[] lights, string color, float brightness = 1.0F)
         {
             //set array of lights via hex color
             float red_f, green_f, blue_f = 0.0F;
@@ -155,7 +155,7 @@ namespace boblight_net
             }
         }
 
-        public void setColor(light light, int red, int green, int blue, float brightness)
+        public void setColor(light light, int red, int green, int blue, float brightness = 1.0F)
         {
             if (light.use())
             {
@@ -168,7 +168,7 @@ namespace boblight_net
             }
         }
 
-        public void setColor(light[] lights, int red, int green, int blue, float brightness)
+        public void setColor(light[] lights, int red, int green, int blue, float brightness = 1.0F)
         {
             //set array of lights via r/g/b colors
             float red_f, green_f, blue_f = 0.0F;
