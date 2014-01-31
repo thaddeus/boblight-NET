@@ -55,11 +55,17 @@
             this.tabGroups = new System.Windows.Forms.TabPage();
             this.listGroups = new System.Windows.Forms.ListBox();
             this.buttonMisc = new System.Windows.Forms.Button();
+            this.btnIterate = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.txtIterateFrom = new System.Windows.Forms.TextBox();
+            this.txtIterateTo = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelNetwork.SuspendLayout();
             this.panelProperties.SuspendLayout();
             this.tabsControl.SuspendLayout();
             this.tabLights.SuspendLayout();
             this.tabGroups.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelNetwork
@@ -334,11 +340,58 @@
             this.buttonMisc.UseVisualStyleBackColor = true;
             this.buttonMisc.Click += new System.EventHandler(this.buttonMisc_Click);
             // 
+            // btnIterate
+            // 
+            this.btnIterate.Location = new System.Drawing.Point(133, 3);
+            this.btnIterate.Name = "btnIterate";
+            this.btnIterate.Size = new System.Drawing.Size(124, 25);
+            this.btnIterate.TabIndex = 15;
+            this.btnIterate.Text = "Iterate Colors";
+            this.btnIterate.UseVisualStyleBackColor = true;
+            this.btnIterate.Click += new System.EventHandler(this.btnIterate_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txtIterateTo);
+            this.panel1.Controls.Add(this.txtIterateFrom);
+            this.panel1.Controls.Add(this.btnIterate);
+            this.panel1.Location = new System.Drawing.Point(12, 340);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(261, 31);
+            this.panel1.TabIndex = 16;
+            // 
+            // txtIterateFrom
+            // 
+            this.txtIterateFrom.Location = new System.Drawing.Point(5, 6);
+            this.txtIterateFrom.Name = "txtIterateFrom";
+            this.txtIterateFrom.Size = new System.Drawing.Size(47, 20);
+            this.txtIterateFrom.TabIndex = 14;
+            this.txtIterateFrom.Text = "FFFFFF";
+            // 
+            // txtIterateTo
+            // 
+            this.txtIterateTo.Location = new System.Drawing.Point(80, 6);
+            this.txtIterateTo.Name = "txtIterateTo";
+            this.txtIterateTo.Size = new System.Drawing.Size(47, 20);
+            this.txtIterateTo.TabIndex = 16;
+            this.txtIterateTo.Text = "FFFFFF";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(58, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(16, 13);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "to";
+            // 
             // boblightGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(361, 342);
+            this.ClientSize = new System.Drawing.Size(361, 441);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonMisc);
             this.Controls.Add(this.tabsControl);
             this.Controls.Add(this.lblAbout);
@@ -354,6 +407,8 @@
             this.tabsControl.ResumeLayout(false);
             this.tabLights.ResumeLayout(false);
             this.tabGroups.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -388,6 +443,11 @@
         private System.Windows.Forms.TabPage tabGroups;
         private System.Windows.Forms.ListBox listGroups;
         private System.Windows.Forms.Button buttonMisc;
+        private System.Windows.Forms.Button btnIterate;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtIterateTo;
+        private System.Windows.Forms.TextBox txtIterateFrom;
     }
 }
 

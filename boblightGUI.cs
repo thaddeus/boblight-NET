@@ -354,5 +354,34 @@ namespace boblight_net
                 doc.Save("bobClient.xml");
             }
         }
+
+        private void btnIterate_Click(object sender, EventArgs e)
+        {
+            if (txtIterateFrom.TextLength == 6 && txtIterateTo.TextLength == 6)
+            {
+                int fromColorRed = Int32.Parse(txtIterateFrom.Text.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+                int fromColorGreen = Int32.Parse(txtIterateFrom.Text.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+                int fromColorBlue = Int32.Parse(txtIterateFrom.Text.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+                int toColorRed = Int32.Parse(txtIterateTo.Text.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+                int toColorGreen = Int32.Parse(txtIterateTo.Text.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+                int toColorBlue = Int32.Parse(txtIterateTo.Text.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+                float diffRed = toColorRed - fromColorRed;
+                float diffGreen = toColorGreen - fromColorGreen;
+                float diffBlue = toColorBlue - fromColorBlue;
+                float tempRed, tempGreen, tempBlue;
+                int curIndex = 0;
+                int totalSize = listLights.SelectedIndices.Count;
+
+                foreach (light curLight in getSelectedLights())
+                {
+                    tempRed = fromColorRed + ((diffRed / listLights.SelectedItems.Count) * curIndex);
+                    tempGreen = fromColorGreen + ((diffGreen / listLights.SelectedItems.Count) * curIndex);
+                    tempBlue = fromColorBlue + ((diffBlue / listLights.SelectedItems.Count) * curIndex);
+                    curIndex++;
+                    client.setColor(curLight, (int)Math.Round(tempRed), (int)Math.Round(tempGreen), (int)Math.Round(tempBlue));
+                }
+                client.syncLights();
+            }
+        }
     }
 }
