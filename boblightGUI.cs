@@ -383,5 +383,18 @@ namespace boblight_net
                 client.syncLights();
             }
         }
+
+        private void btnAddItColor_Click(object sender, EventArgs e)
+        {
+            listIterate.Items.Add(txtIterateFrom.Text);
+        }
+
+        private void btnRemoveItColor_Click(object sender, EventArgs e)
+        {
+            while (listIterate.SelectedItems.Count != 0)
+            {
+                listIterate.Items.Remove(listIterate.SelectedItems[0]);
+            }
+        }
     }
 }

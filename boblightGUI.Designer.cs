@@ -57,9 +57,12 @@
             this.buttonMisc = new System.Windows.Forms.Button();
             this.btnIterate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.txtIterateFrom = new System.Windows.Forms.TextBox();
-            this.txtIterateTo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtIterateTo = new System.Windows.Forms.TextBox();
+            this.txtIterateFrom = new System.Windows.Forms.TextBox();
+            this.listIterate = new System.Windows.Forms.ListBox();
+            this.btnAddItColor = new System.Windows.Forms.Button();
+            this.btnRemoveItColor = new System.Windows.Forms.Button();
             this.panelNetwork.SuspendLayout();
             this.panelProperties.SuspendLayout();
             this.tabsControl.SuspendLayout();
@@ -342,9 +345,9 @@
             // 
             // btnIterate
             // 
-            this.btnIterate.Location = new System.Drawing.Point(133, 3);
+            this.btnIterate.Location = new System.Drawing.Point(128, 60);
             this.btnIterate.Name = "btnIterate";
-            this.btnIterate.Size = new System.Drawing.Size(124, 25);
+            this.btnIterate.Size = new System.Drawing.Size(115, 25);
             this.btnIterate.TabIndex = 15;
             this.btnIterate.Text = "Iterate Colors";
             this.btnIterate.UseVisualStyleBackColor = true;
@@ -352,46 +355,78 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.txtIterateTo);
-            this.panel1.Controls.Add(this.txtIterateFrom);
+            this.panel1.Controls.Add(this.btnRemoveItColor);
+            this.panel1.Controls.Add(this.btnAddItColor);
+            this.panel1.Controls.Add(this.listIterate);
             this.panel1.Controls.Add(this.btnIterate);
+            this.panel1.Controls.Add(this.txtIterateFrom);
             this.panel1.Location = new System.Drawing.Point(12, 340);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(261, 31);
+            this.panel1.Size = new System.Drawing.Size(246, 111);
             this.panel1.TabIndex = 16;
-            // 
-            // txtIterateFrom
-            // 
-            this.txtIterateFrom.Location = new System.Drawing.Point(5, 6);
-            this.txtIterateFrom.Name = "txtIterateFrom";
-            this.txtIterateFrom.Size = new System.Drawing.Size(47, 20);
-            this.txtIterateFrom.TabIndex = 14;
-            this.txtIterateFrom.Text = "FFFFFF";
-            // 
-            // txtIterateTo
-            // 
-            this.txtIterateTo.Location = new System.Drawing.Point(80, 6);
-            this.txtIterateTo.Name = "txtIterateTo";
-            this.txtIterateTo.Size = new System.Drawing.Size(47, 20);
-            this.txtIterateTo.TabIndex = 16;
-            this.txtIterateTo.Text = "FFFFFF";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(58, 9);
+            this.label1.Location = new System.Drawing.Point(320, 429);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(16, 13);
             this.label1.TabIndex = 17;
             this.label1.Text = "to";
             // 
+            // txtIterateTo
+            // 
+            this.txtIterateTo.Location = new System.Drawing.Point(304, 386);
+            this.txtIterateTo.Name = "txtIterateTo";
+            this.txtIterateTo.Size = new System.Drawing.Size(47, 20);
+            this.txtIterateTo.TabIndex = 16;
+            this.txtIterateTo.Text = "FFFFFF";
+            // 
+            // txtIterateFrom
+            // 
+            this.txtIterateFrom.Location = new System.Drawing.Point(128, 9);
+            this.txtIterateFrom.Name = "txtIterateFrom";
+            this.txtIterateFrom.Size = new System.Drawing.Size(115, 20);
+            this.txtIterateFrom.TabIndex = 14;
+            this.txtIterateFrom.Text = "FFFFFF";
+            // 
+            // listIterate
+            // 
+            this.listIterate.FormattingEnabled = true;
+            this.listIterate.Location = new System.Drawing.Point(5, 9);
+            this.listIterate.Name = "listIterate";
+            this.listIterate.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.listIterate.Size = new System.Drawing.Size(117, 69);
+            this.listIterate.TabIndex = 16;
+            // 
+            // btnAddItColor
+            // 
+            this.btnAddItColor.Location = new System.Drawing.Point(128, 31);
+            this.btnAddItColor.Name = "btnAddItColor";
+            this.btnAddItColor.Size = new System.Drawing.Size(115, 25);
+            this.btnAddItColor.TabIndex = 17;
+            this.btnAddItColor.Text = "Add Color";
+            this.btnAddItColor.UseVisualStyleBackColor = true;
+            this.btnAddItColor.Click += new System.EventHandler(this.btnAddItColor_Click);
+            // 
+            // btnRemoveItColor
+            // 
+            this.btnRemoveItColor.Location = new System.Drawing.Point(4, 83);
+            this.btnRemoveItColor.Name = "btnRemoveItColor";
+            this.btnRemoveItColor.Size = new System.Drawing.Size(119, 25);
+            this.btnRemoveItColor.TabIndex = 18;
+            this.btnRemoveItColor.Text = "Remove Color(s)";
+            this.btnRemoveItColor.UseVisualStyleBackColor = true;
+            this.btnRemoveItColor.Click += new System.EventHandler(this.btnRemoveItColor_Click);
+            // 
             // boblightGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(361, 441);
+            this.ClientSize = new System.Drawing.Size(364, 463);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.txtIterateTo);
             this.Controls.Add(this.buttonMisc);
             this.Controls.Add(this.tabsControl);
             this.Controls.Add(this.lblAbout);
@@ -448,6 +483,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtIterateTo;
         private System.Windows.Forms.TextBox txtIterateFrom;
+        private System.Windows.Forms.ListBox listIterate;
+        private System.Windows.Forms.Button btnRemoveItColor;
+        private System.Windows.Forms.Button btnAddItColor;
     }
 }
 
