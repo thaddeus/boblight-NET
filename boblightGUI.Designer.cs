@@ -61,6 +61,7 @@
             this.btnAddItColor = new System.Windows.Forms.Button();
             this.listIterate = new System.Windows.Forms.ListBox();
             this.txtIterateFrom = new System.Windows.Forms.TextBox();
+            this.btnIterateReverse = new System.Windows.Forms.Button();
             this.panelNetwork.SuspendLayout();
             this.panelProperties.SuspendLayout();
             this.tabsControl.SuspendLayout();
@@ -343,7 +344,7 @@
             // 
             // btnIterate
             // 
-            this.btnIterate.Location = new System.Drawing.Point(128, 60);
+            this.btnIterate.Location = new System.Drawing.Point(128, 57);
             this.btnIterate.Name = "btnIterate";
             this.btnIterate.Size = new System.Drawing.Size(115, 25);
             this.btnIterate.TabIndex = 15;
@@ -353,6 +354,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnIterateReverse);
             this.panel1.Controls.Add(this.btnRemoveItColor);
             this.panel1.Controls.Add(this.btnAddItColor);
             this.panel1.Controls.Add(this.listIterate);
@@ -399,6 +401,16 @@
             this.txtIterateFrom.Size = new System.Drawing.Size(115, 20);
             this.txtIterateFrom.TabIndex = 14;
             this.txtIterateFrom.Text = "FFFFFF";
+            // 
+            // btnIterateReverse
+            // 
+            this.btnIterateReverse.Location = new System.Drawing.Point(128, 83);
+            this.btnIterateReverse.Name = "btnIterateReverse";
+            this.btnIterateReverse.Size = new System.Drawing.Size(115, 25);
+            this.btnIterateReverse.TabIndex = 19;
+            this.btnIterateReverse.Text = "Reverse Iterate";
+            this.btnIterateReverse.UseVisualStyleBackColor = true;
+            this.btnIterateReverse.Click += new System.EventHandler(this.button1_Click);
             // 
             // boblightGUI
             // 
@@ -463,6 +475,7 @@
         private System.Windows.Forms.ListBox listIterate;
         private System.Windows.Forms.Button btnRemoveItColor;
         private System.Windows.Forms.Button btnAddItColor;
+        private System.Windows.Forms.Button btnIterateReverse;
     }
 }
 

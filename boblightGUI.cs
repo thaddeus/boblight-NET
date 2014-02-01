@@ -357,9 +357,22 @@ namespace boblight_net
 
         private void btnIterate_Click(object sender, EventArgs e)
         {
+            iterateLightString();
+        }
+
+        private void iterateLightString(bool reverse = false)
+        {
             light[] allLights = getSelectedLights();
             int lightCount = allLights.Length;
-
+            if(reverse)
+            {
+                Stack<light> lightStack = new Stack<light>();
+                foreach(light light in allLights)
+                {
+                    lightStack.Push(light);
+                }
+                allLights = lightStack.Cast<light>().ToArray();
+            }
             //In order to avoid double setting the first color, we separately set the first light selected
             client.setColor(allLights[0], listIterate.Items[0].ToString(), 1.0F);
 
@@ -368,7 +381,7 @@ namespace boblight_net
             //Loop through all the iterative colors within the user's list
             for (int i = 1; i < listIterate.Items.Count; i++)
             {
-                int numLights = (int)Math.Floor((float)(((lightCount - 1) / (listIterate.Items.Count - 1)) * i) - (lastLight));
+                int numLights = (int)Math.Ceiling((float)(((lightCount - 1) / (listIterate.Items.Count - 1)) * i) - (lastLight));
                 light[] lightString = new light[numLights];
                 int tempIndex = 0;
                 for (int j = lastLight + 1; j < numLights + lastLight + 1; j++)
@@ -424,6 +437,11 @@ namespace boblight_net
             {
                 listIterate.Items.Remove(listIterate.SelectedItems[0]);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            iterateLightString(true);
         }
     }
 }
