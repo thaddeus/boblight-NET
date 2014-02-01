@@ -357,30 +357,59 @@ namespace boblight_net
 
         private void btnIterate_Click(object sender, EventArgs e)
         {
-            if (txtIterateFrom.TextLength == 6 && txtIterateTo.TextLength == 6)
-            {
-                int fromColorRed = Int32.Parse(txtIterateFrom.Text.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
-                int fromColorGreen = Int32.Parse(txtIterateFrom.Text.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
-                int fromColorBlue = Int32.Parse(txtIterateFrom.Text.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
-                int toColorRed = Int32.Parse(txtIterateTo.Text.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
-                int toColorGreen = Int32.Parse(txtIterateTo.Text.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
-                int toColorBlue = Int32.Parse(txtIterateTo.Text.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
-                float diffRed = toColorRed - fromColorRed;
-                float diffGreen = toColorGreen - fromColorGreen;
-                float diffBlue = toColorBlue - fromColorBlue;
-                float tempRed, tempGreen, tempBlue;
-                int curIndex = 0;
-                int totalSize = listLights.SelectedIndices.Count;
+            light[] allLights = getSelectedLights();
+            int lightCount = allLights.Length;
 
-                foreach (light curLight in getSelectedLights())
+            //In order to avoid double setting the first color, we separately set the first light selected
+            client.setColor(allLights[0], listIterate.Items[0].ToString(), 1.0F);
+
+            int lastLight = 0;
+
+            //Loop through all the iterative colors within the user's list
+            for (int i = 1; i < listIterate.Items.Count; i++)
+            {
+                int numLights = (int)Math.Floor((float)(((lightCount - 1) / (listIterate.Items.Count - 1)) * i) - (lastLight));
+                light[] lightString = new light[numLights];
+                int tempIndex = 0;
+                for (int j = lastLight + 1; j < numLights + lastLight + 1; j++)
                 {
-                    tempRed = fromColorRed + ((diffRed / listLights.SelectedItems.Count) * curIndex);
-                    tempGreen = fromColorGreen + ((diffGreen / listLights.SelectedItems.Count) * curIndex);
-                    tempBlue = fromColorBlue + ((diffBlue / listLights.SelectedItems.Count) * curIndex);
-                    curIndex++;
-                    client.setColor(curLight, (int)Math.Round(tempRed), (int)Math.Round(tempGreen), (int)Math.Round(tempBlue));
+                    lightString[tempIndex] = allLights[j];
+                    tempIndex++;
                 }
-                client.syncLights();
+                iterateLightColors(lightString, listIterate.Items[i - 1].ToString(), listIterate.Items[i].ToString());
+                lastLight = lastLight + numLights;
+            }
+
+            //Make sure that the boblightd properly syncs all the updated we just sent it.
+            client.syncLights();
+        }
+
+        private void iterateLightColors(light[] lights, string fromColor, string toColor)
+        {
+            //Initialize working colors
+            int fromColorRed = Int32.Parse(fromColor.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+            int fromColorGreen = Int32.Parse(fromColor.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+            int fromColorBlue = Int32.Parse(fromColor.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+            int toColorRed = Int32.Parse(toColor.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+            int toColorGreen = Int32.Parse(toColor.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+            int toColorBlue = Int32.Parse(toColor.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+
+            float diffRed = toColorRed - fromColorRed;
+            float diffGreen = toColorGreen - fromColorGreen;
+            float diffBlue = toColorBlue - fromColorBlue;
+            float tempRed, tempGreen, tempBlue;
+
+            //Initialize looping variables
+            int curIndex = 1;
+            int totalSize = lights.Length;
+
+            foreach (light curLight in lights)
+            {
+                tempRed = fromColorRed + ((diffRed / totalSize) * curIndex);
+                tempGreen = fromColorGreen + ((diffGreen / totalSize) * curIndex);
+                tempBlue = fromColorBlue + ((diffBlue / totalSize) * curIndex);
+                curIndex++;
+                client.setColor(curLight, (int)Math.Round(tempRed), (int)Math.Round(tempGreen), (int)Math.Round(tempBlue));
             }
         }
 
