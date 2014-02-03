@@ -56,22 +56,26 @@
             this.listGroups = new System.Windows.Forms.ListBox();
             this.buttonMisc = new System.Windows.Forms.Button();
             this.btnIterate = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelIterate = new System.Windows.Forms.Panel();
             this.btnRemoveItColor = new System.Windows.Forms.Button();
             this.btnAddItColor = new System.Windows.Forms.Button();
             this.listIterate = new System.Windows.Forms.ListBox();
             this.txtIterateFrom = new System.Windows.Forms.TextBox();
             this.btnIterateReverse = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panelNetwork.SuspendLayout();
             this.panelProperties.SuspendLayout();
             this.tabsControl.SuspendLayout();
             this.tabLights.SuspendLayout();
             this.tabGroups.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelIterate.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelNetwork
             // 
+            this.panelNetwork.Controls.Add(this.label3);
             this.panelNetwork.Controls.Add(this.textPriority);
             this.panelNetwork.Controls.Add(this.lblPriority);
             this.panelNetwork.Controls.Add(this.buttonConnect);
@@ -80,14 +84,14 @@
             this.panelNetwork.Controls.Add(this.textIP);
             this.panelNetwork.Controls.Add(this.lblPort);
             this.panelNetwork.Controls.Add(this.lblIP);
-            this.panelNetwork.Location = new System.Drawing.Point(173, 12);
+            this.panelNetwork.Location = new System.Drawing.Point(173, 13);
             this.panelNetwork.Name = "panelNetwork";
-            this.panelNetwork.Size = new System.Drawing.Size(178, 105);
+            this.panelNetwork.Size = new System.Drawing.Size(178, 120);
             this.panelNetwork.TabIndex = 0;
             // 
             // textPriority
             // 
-            this.textPriority.Location = new System.Drawing.Point(50, 55);
+            this.textPriority.Location = new System.Drawing.Point(50, 73);
             this.textPriority.Name = "textPriority";
             this.textPriority.Size = new System.Drawing.Size(125, 20);
             this.textPriority.TabIndex = 3;
@@ -96,7 +100,7 @@
             // lblPriority
             // 
             this.lblPriority.AutoSize = true;
-            this.lblPriority.Location = new System.Drawing.Point(3, 58);
+            this.lblPriority.Location = new System.Drawing.Point(3, 76);
             this.lblPriority.Name = "lblPriority";
             this.lblPriority.Size = new System.Drawing.Size(41, 13);
             this.lblPriority.TabIndex = 6;
@@ -104,7 +108,7 @@
             // 
             // buttonConnect
             // 
-            this.buttonConnect.Location = new System.Drawing.Point(82, 80);
+            this.buttonConnect.Location = new System.Drawing.Point(82, 95);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(93, 23);
             this.buttonConnect.TabIndex = 4;
@@ -115,7 +119,7 @@
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(3, 85);
+            this.lblStatus.Location = new System.Drawing.Point(3, 100);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(73, 13);
             this.lblStatus.TabIndex = 4;
@@ -123,7 +127,7 @@
             // 
             // textPort
             // 
-            this.textPort.Location = new System.Drawing.Point(38, 29);
+            this.textPort.Location = new System.Drawing.Point(38, 50);
             this.textPort.Name = "textPort";
             this.textPort.Size = new System.Drawing.Size(137, 20);
             this.textPort.TabIndex = 2;
@@ -131,7 +135,7 @@
             // 
             // textIP
             // 
-            this.textIP.Location = new System.Drawing.Point(29, 3);
+            this.textIP.Location = new System.Drawing.Point(29, 27);
             this.textIP.Name = "textIP";
             this.textIP.Size = new System.Drawing.Size(146, 20);
             this.textIP.TabIndex = 1;
@@ -140,7 +144,7 @@
             // lblPort
             // 
             this.lblPort.AutoSize = true;
-            this.lblPort.Location = new System.Drawing.Point(3, 32);
+            this.lblPort.Location = new System.Drawing.Point(3, 53);
             this.lblPort.Name = "lblPort";
             this.lblPort.Size = new System.Drawing.Size(29, 13);
             this.lblPort.TabIndex = 1;
@@ -149,7 +153,7 @@
             // lblIP
             // 
             this.lblIP.AutoSize = true;
-            this.lblIP.Location = new System.Drawing.Point(3, 6);
+            this.lblIP.Location = new System.Drawing.Point(3, 30);
             this.lblIP.Name = "lblIP";
             this.lblIP.Size = new System.Drawing.Size(20, 13);
             this.lblIP.TabIndex = 0;
@@ -166,6 +170,7 @@
             // 
             // panelProperties
             // 
+            this.panelProperties.Controls.Add(this.label2);
             this.panelProperties.Controls.Add(this.buttonInterpolate);
             this.panelProperties.Controls.Add(this.checkInterpolate);
             this.panelProperties.Controls.Add(this.buttonUse);
@@ -177,14 +182,14 @@
             this.panelProperties.Controls.Add(this.textHex);
             this.panelProperties.Controls.Add(this.lblHex);
             this.panelProperties.Enabled = false;
-            this.panelProperties.Location = new System.Drawing.Point(173, 123);
+            this.panelProperties.Location = new System.Drawing.Point(173, 138);
             this.panelProperties.Name = "panelProperties";
-            this.panelProperties.Size = new System.Drawing.Size(178, 177);
+            this.panelProperties.Size = new System.Drawing.Size(178, 193);
             this.panelProperties.TabIndex = 2;
             // 
             // buttonInterpolate
             // 
-            this.buttonInterpolate.Location = new System.Drawing.Point(82, 117);
+            this.buttonInterpolate.Location = new System.Drawing.Point(82, 135);
             this.buttonInterpolate.Name = "buttonInterpolate";
             this.buttonInterpolate.Size = new System.Drawing.Size(93, 25);
             this.buttonInterpolate.TabIndex = 11;
@@ -194,7 +199,7 @@
             // checkInterpolate
             // 
             this.checkInterpolate.AutoSize = true;
-            this.checkInterpolate.Location = new System.Drawing.Point(3, 121);
+            this.checkInterpolate.Location = new System.Drawing.Point(3, 139);
             this.checkInterpolate.Name = "checkInterpolate";
             this.checkInterpolate.Size = new System.Drawing.Size(76, 17);
             this.checkInterpolate.TabIndex = 10;
@@ -203,7 +208,7 @@
             // 
             // buttonUse
             // 
-            this.buttonUse.Location = new System.Drawing.Point(91, 148);
+            this.buttonUse.Location = new System.Drawing.Point(91, 166);
             this.buttonUse.Name = "buttonUse";
             this.buttonUse.Size = new System.Drawing.Size(84, 25);
             this.buttonUse.TabIndex = 13;
@@ -216,7 +221,7 @@
             this.checkUse.AutoSize = true;
             this.checkUse.Checked = true;
             this.checkUse.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkUse.Location = new System.Drawing.Point(3, 152);
+            this.checkUse.Location = new System.Drawing.Point(3, 170);
             this.checkUse.Name = "checkUse";
             this.checkUse.Size = new System.Drawing.Size(82, 17);
             this.checkUse.TabIndex = 12;
@@ -225,7 +230,7 @@
             // 
             // buttonSpeed
             // 
-            this.buttonSpeed.Location = new System.Drawing.Point(3, 86);
+            this.buttonSpeed.Location = new System.Drawing.Point(3, 104);
             this.buttonSpeed.Name = "buttonSpeed";
             this.buttonSpeed.Size = new System.Drawing.Size(172, 25);
             this.buttonSpeed.TabIndex = 9;
@@ -235,7 +240,7 @@
             // 
             // textSpeed
             // 
-            this.textSpeed.Location = new System.Drawing.Point(50, 60);
+            this.textSpeed.Location = new System.Drawing.Point(50, 78);
             this.textSpeed.Name = "textSpeed";
             this.textSpeed.Size = new System.Drawing.Size(125, 20);
             this.textSpeed.TabIndex = 8;
@@ -244,7 +249,7 @@
             // lblSpeed
             // 
             this.lblSpeed.AutoSize = true;
-            this.lblSpeed.Location = new System.Drawing.Point(3, 63);
+            this.lblSpeed.Location = new System.Drawing.Point(3, 81);
             this.lblSpeed.Name = "lblSpeed";
             this.lblSpeed.Size = new System.Drawing.Size(41, 13);
             this.lblSpeed.TabIndex = 9;
@@ -252,7 +257,7 @@
             // 
             // buttonColor
             // 
-            this.buttonColor.Location = new System.Drawing.Point(3, 29);
+            this.buttonColor.Location = new System.Drawing.Point(3, 47);
             this.buttonColor.Name = "buttonColor";
             this.buttonColor.Size = new System.Drawing.Size(172, 25);
             this.buttonColor.TabIndex = 7;
@@ -262,7 +267,7 @@
             // 
             // textHex
             // 
-            this.textHex.Location = new System.Drawing.Point(38, 3);
+            this.textHex.Location = new System.Drawing.Point(38, 21);
             this.textHex.Name = "textHex";
             this.textHex.Size = new System.Drawing.Size(137, 20);
             this.textHex.TabIndex = 6;
@@ -271,7 +276,7 @@
             // lblHex
             // 
             this.lblHex.AutoSize = true;
-            this.lblHex.Location = new System.Drawing.Point(3, 6);
+            this.lblHex.Location = new System.Drawing.Point(3, 24);
             this.lblHex.Name = "lblHex";
             this.lblHex.Size = new System.Drawing.Size(29, 13);
             this.lblHex.TabIndex = 6;
@@ -280,7 +285,7 @@
             // lblAbout
             // 
             this.lblAbout.AutoSize = true;
-            this.lblAbout.Location = new System.Drawing.Point(173, 312);
+            this.lblAbout.Location = new System.Drawing.Point(393, 148);
             this.lblAbout.Name = "lblAbout";
             this.lblAbout.Size = new System.Drawing.Size(176, 13);
             this.lblAbout.TabIndex = 3;
@@ -344,7 +349,7 @@
             // 
             // btnIterate
             // 
-            this.btnIterate.Location = new System.Drawing.Point(128, 57);
+            this.btnIterate.Location = new System.Drawing.Point(128, 48);
             this.btnIterate.Name = "btnIterate";
             this.btnIterate.Size = new System.Drawing.Size(115, 25);
             this.btnIterate.TabIndex = 15;
@@ -352,22 +357,24 @@
             this.btnIterate.UseVisualStyleBackColor = true;
             this.btnIterate.Click += new System.EventHandler(this.btnIterate_Click);
             // 
-            // panel1
+            // panelIterate
             // 
-            this.panel1.Controls.Add(this.btnIterateReverse);
-            this.panel1.Controls.Add(this.btnRemoveItColor);
-            this.panel1.Controls.Add(this.btnAddItColor);
-            this.panel1.Controls.Add(this.listIterate);
-            this.panel1.Controls.Add(this.btnIterate);
-            this.panel1.Controls.Add(this.txtIterateFrom);
-            this.panel1.Location = new System.Drawing.Point(12, 340);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(246, 111);
-            this.panel1.TabIndex = 16;
+            this.panelIterate.Controls.Add(this.label1);
+            this.panelIterate.Controls.Add(this.btnIterateReverse);
+            this.panelIterate.Controls.Add(this.btnRemoveItColor);
+            this.panelIterate.Controls.Add(this.btnAddItColor);
+            this.panelIterate.Controls.Add(this.listIterate);
+            this.panelIterate.Controls.Add(this.btnIterate);
+            this.panelIterate.Controls.Add(this.txtIterateFrom);
+            this.panelIterate.Enabled = false;
+            this.panelIterate.Location = new System.Drawing.Point(357, 12);
+            this.panelIterate.Name = "panelIterate";
+            this.panelIterate.Size = new System.Drawing.Size(246, 130);
+            this.panelIterate.TabIndex = 16;
             // 
             // btnRemoveItColor
             // 
-            this.btnRemoveItColor.Location = new System.Drawing.Point(4, 83);
+            this.btnRemoveItColor.Location = new System.Drawing.Point(4, 101);
             this.btnRemoveItColor.Name = "btnRemoveItColor";
             this.btnRemoveItColor.Size = new System.Drawing.Size(119, 25);
             this.btnRemoveItColor.TabIndex = 18;
@@ -377,9 +384,9 @@
             // 
             // btnAddItColor
             // 
-            this.btnAddItColor.Location = new System.Drawing.Point(128, 31);
+            this.btnAddItColor.Location = new System.Drawing.Point(177, 27);
             this.btnAddItColor.Name = "btnAddItColor";
-            this.btnAddItColor.Size = new System.Drawing.Size(115, 25);
+            this.btnAddItColor.Size = new System.Drawing.Size(63, 20);
             this.btnAddItColor.TabIndex = 17;
             this.btnAddItColor.Text = "Add Color";
             this.btnAddItColor.UseVisualStyleBackColor = true;
@@ -388,7 +395,7 @@
             // listIterate
             // 
             this.listIterate.FormattingEnabled = true;
-            this.listIterate.Location = new System.Drawing.Point(5, 9);
+            this.listIterate.Location = new System.Drawing.Point(5, 27);
             this.listIterate.Name = "listIterate";
             this.listIterate.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.listIterate.Size = new System.Drawing.Size(117, 69);
@@ -396,15 +403,16 @@
             // 
             // txtIterateFrom
             // 
-            this.txtIterateFrom.Location = new System.Drawing.Point(128, 9);
+            this.txtIterateFrom.Location = new System.Drawing.Point(128, 27);
             this.txtIterateFrom.Name = "txtIterateFrom";
-            this.txtIterateFrom.Size = new System.Drawing.Size(115, 20);
+            this.txtIterateFrom.Size = new System.Drawing.Size(46, 20);
             this.txtIterateFrom.TabIndex = 14;
             this.txtIterateFrom.Text = "FFFFFF";
+            this.txtIterateFrom.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIterateFrom_KeyPress);
             // 
             // btnIterateReverse
             // 
-            this.btnIterateReverse.Location = new System.Drawing.Point(128, 83);
+            this.btnIterateReverse.Location = new System.Drawing.Point(128, 73);
             this.btnIterateReverse.Name = "btnIterateReverse";
             this.btnIterateReverse.Size = new System.Drawing.Size(115, 25);
             this.btnIterateReverse.TabIndex = 19;
@@ -412,12 +420,39 @@
             this.btnIterateReverse.UseVisualStyleBackColor = true;
             this.btnIterateReverse.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(50, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(151, 13);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Color Smoothing/Iteration Tool";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(49, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(80, 13);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Light Properties";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(35, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(111, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Connection Properties";
+            // 
             // boblightGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 463);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(608, 342);
+            this.Controls.Add(this.panelIterate);
             this.Controls.Add(this.buttonMisc);
             this.Controls.Add(this.tabsControl);
             this.Controls.Add(this.lblAbout);
@@ -433,8 +468,8 @@
             this.tabsControl.ResumeLayout(false);
             this.tabLights.ResumeLayout(false);
             this.tabGroups.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelIterate.ResumeLayout(false);
+            this.panelIterate.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -470,12 +505,15 @@
         private System.Windows.Forms.ListBox listGroups;
         private System.Windows.Forms.Button buttonMisc;
         private System.Windows.Forms.Button btnIterate;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelIterate;
         private System.Windows.Forms.TextBox txtIterateFrom;
         private System.Windows.Forms.ListBox listIterate;
         private System.Windows.Forms.Button btnRemoveItColor;
         private System.Windows.Forms.Button btnAddItColor;
         private System.Windows.Forms.Button btnIterateReverse;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
 

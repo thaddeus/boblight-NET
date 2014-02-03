@@ -63,6 +63,7 @@ namespace boblight_net
                 if (client.isConnected())
                 {
                     panelProperties.Enabled = true;
+                    panelIterate.Enabled = true;
                     tabsControl.Enabled = true;
                     buttonMisc.Enabled = true;
                     textIP.Enabled = false;
@@ -180,6 +181,7 @@ namespace boblight_net
                 listLights.Items.Clear();
                 listGroups.Items.Clear();
                 panelProperties.Enabled = false;
+                panelIterate.Enabled = false;
                 tabsControl.Enabled = false;
                 buttonMisc.Enabled = false;
                 textIP.Enabled = true;
@@ -442,6 +444,15 @@ namespace boblight_net
         private void button1_Click(object sender, EventArgs e)
         {
             iterateLightString(true);
+        }
+
+        private void txtIterateFrom_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                listIterate.Items.Add(txtIterateFrom.Text);
+                txtIterateFrom.SelectAll();
+            }
         }
     }
 }
