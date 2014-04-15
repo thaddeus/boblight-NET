@@ -11,6 +11,7 @@ namespace boblight_net
         private string name = null;
         private float hscan_min, hscan_max, vscan_min, vscan_max = 0.0F;
         private bool inUse = true;
+        public float red, green, blue;
         public light(string blname, float blvscan_min, float blvscan_max, float blhscan_min, float blhscan_max)
         {
             name = blname;
@@ -133,58 +134,76 @@ namespace boblight_net
             }
         }
 
+        //Set color Hex version
         public void setColor(light light, string color, float brightness = 1.0F)
         {
             if (light.use())
             {
                 //set a light via hex color
-                float red_f, green_f, blue_f = 0.0F;
-                red_f = calculateBobColor(Int32.Parse(color.Substring(0, 2), System.Globalization.NumberStyles.HexNumber), brightness);
-                green_f = calculateBobColor(Int32.Parse(color.Substring(2, 2), System.Globalization.NumberStyles.HexNumber), brightness);
-                blue_f = calculateBobColor(Int32.Parse(color.Substring(4, 2), System.Globalization.NumberStyles.HexNumber), brightness);
-                sendColor(light.getName(), red_f, green_f, blue_f);
+                int red, green, blue;
+                red = Int32.Parse(color.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+                green = Int32.Parse(color.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+                blue = Int32.Parse(color.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+                setLight(light, calculateBobColor(red), calculateBobColor(green), calculateBobColor(blue));
             }
         }
 
-        public void setColor(light[] lights, string color, float brightness = 1.0F)
+        //Set color Hex version
+        //Array override
+        public void setColor(light[] lights, string color)
         {
             //set array of lights via hex color
-            float red_f, green_f, blue_f = 0.0F;
-            red_f = calculateBobColor(Int32.Parse(color.Substring(0, 2), System.Globalization.NumberStyles.HexNumber), brightness);
-            green_f = calculateBobColor(Int32.Parse(color.Substring(2, 2), System.Globalization.NumberStyles.HexNumber), brightness);
-            blue_f = calculateBobColor(Int32.Parse(color.Substring(4, 2), System.Globalization.NumberStyles.HexNumber), brightness);
+            int red, green, blue;
+            red = Int32.Parse(color.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+            green = Int32.Parse(color.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+            blue = Int32.Parse(color.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
             foreach (light light in lights)
             {
                 if (light.use())
-                    sendColor(light.getName(), red_f, green_f, blue_f);
+                    setLight(light, calculateBobColor(red), calculateBobColor(green), calculateBobColor(blue));
             }
         }
 
-        public void setColor(light light, int red, int green, int blue, float brightness = 1.0F)
+        //Set color RGB integer version
+        public void setColor(light light, int red, int green, int blue)
         {
             if (light.use())
-            {
-                //set light via r/g/b colors
-                float red_f, green_f, blue_f = 0.0F;
-                red_f = calculateBobColor(red, brightness);
-                green_f = calculateBobColor(green, brightness);
-                blue_f = calculateBobColor(blue, brightness);
-                sendColor(light.getName(), red_f, green_f, blue_f);
-            }
+                setLight(light, calculateBobColor(red), calculateBobColor(green), calculateBobColor(blue));
         }
 
-        public void setColor(light[] lights, int red, int green, int blue, float brightness = 1.0F)
+        //Set color RGB integer version
+        //Array override
+        public void setColor(light[] lights, int red, int green, int blue)
         {
-            //set array of lights via r/g/b colors
-            float red_f, green_f, blue_f = 0.0F;
-            red_f = calculateBobColor(red, brightness);
-            green_f = calculateBobColor(green, brightness);
-            blue_f = calculateBobColor(blue, brightness);
             foreach (light light in lights)
             {
                 if (light.use())
-                    sendColor(light.getName(), red_f, green_f, blue_f);
+                    setLight(light, calculateBobColor(red), calculateBobColor(green), calculateBobColor(blue));
             }
+        }
+
+        public void setLight(light light, float red, float green, float blue)
+        {
+            //Store these colors for future alterations
+            light.red = red;
+            light.green = green;
+            light.blue = blue;
+
+            //Do we have any color alterations to perform?
+            if (luminosityModifier != 1.0D || saturationModifier != 1.0D || hueModifier != 0)
+            {
+                HSLColor color = new HSLColor((int)(red * 255), (int)(green * 255), (int)(blue * 255));
+                color.Luminosity = color.Luminosity * luminosityModifier;
+                color.Saturation = color.Saturation * saturationModifier;
+                color.Hue = (color.Hue + hueModifier) % 240;
+                int[] rgbColor = color.getRGB();
+                red = calculateBobColor(rgbColor[0]);
+                green = calculateBobColor(rgbColor[1]);
+                blue = calculateBobColor(rgbColor[2]);
+            }
+
+            //Send the colors to the boblight server
+            sendColor(light.getName(), red, green, blue);
         }
 
         public float calculateBobColor(int color, float brightness)
@@ -200,13 +219,8 @@ namespace boblight_net
 
         private void sendColor(string light, float red, float green, float blue)
         {
-            HSLColor color = new HSLColor((int)red * 255, (int)green * 255, (int)blue * 255);
-            color.Luminosity = color.Luminosity * luminosityModifier;
-            color.Saturation = color.Saturation * saturationModifier;
-            color.Hue = (color.Hue + hueModifier) % 240;
-            int[] rgbColor = color.getRGB();
             //boblightd version 5 set light
-            sendData("set light " + light + " rgb " + calculateBobColor(rgbColor[0]).ToString() + " " + calculateBobColor(rgbColor[1]).ToString() + " " + calculateBobColor(rgbColor[2]).ToString() + "\n");
+            sendData("set light " + light + " rgb " + red.ToString() + " " + green.ToString() + " " + blue.ToString() + "\n");
         }
 
         public void setSpeed(light light, float speed)

@@ -226,7 +226,7 @@ namespace boblight_net
 
         private void buttonColor_Click(object sender, EventArgs e)
         {
-            client.setColor(getSelectedLights(), textHex.Text, 1.0F);
+            client.setColor(getSelectedLights(), textHex.Text);
             client.syncLights();
 
             //Update configuration
@@ -520,18 +520,30 @@ namespace boblight_net
         {
             client.luminosityModifier = barLumosity.Value / 10D;
             lblLuminosityValue.Text = client.luminosityModifier.ToString();
+            foreach (light light in client.getLights())
+            {
+                client.setLight(light, light.red, light.green, light.blue);
+            }
         }
 
         private void barSaturation_ValueChanged(object sender, EventArgs e)
         {
             client.saturationModifier = barSaturation.Value / 10D;
             lblSaturationValue.Text = client.saturationModifier.ToString();
+            foreach (light light in client.getLights())
+            {
+                client.setLight(light, light.red, light.green, light.blue);
+            }
         }
 
         private void barHue_ValueChanged(object sender, EventArgs e)
         {
             client.hueModifier = barHue.Value;
             lblHueValue.Text = client.hueModifier.ToString();
+            foreach (light light in client.getLights())
+            {
+                client.setLight(light, light.red, light.green, light.blue);
+            }
         }
     }
 }
