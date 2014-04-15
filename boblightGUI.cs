@@ -16,6 +16,7 @@ namespace boblight_net
     public partial class boblightGUI : Form
     {
         private boblightClient client;
+        private boblightClient sparkleClient;
         public boblightGUI()
         {
             InitializeComponent();
@@ -150,10 +151,10 @@ namespace boblight_net
                     {
                         listLights.Items.Add(light.getName());
                         XmlNode lightNode = root.SelectSingleNode("Servers/Server[@IP='" + textIP.Text + "' and @Port='" + textPort.Text + "']/Lights/Light[@Name='" + light.getName() + "']");
-                        client.setInterpolation(light, bool.Parse(lightNode.Attributes["Interpolate"].Value));
-                        client.setSpeed(light, float.Parse(lightNode.Attributes["Speed"].Value));
-                        client.setColor(light, lightNode.Attributes["Color"].Value);
-                        client.setUse(light, bool.Parse(lightNode.Attributes["Use"].Value));
+                        //client.setInterpolation(light, bool.Parse(lightNode.Attributes["Interpolate"].Value));
+                        //client.setSpeed(light, float.Parse(lightNode.Attributes["Speed"].Value));
+                        //client.setColor(light, lightNode.Attributes["Color"].Value);
+                        //client.setUse(light, bool.Parse(lightNode.Attributes["Use"].Value));
                     }
                     client.syncLights();
 
@@ -453,6 +454,84 @@ namespace boblight_net
                 listIterate.Items.Add(txtIterateFrom.Text);
                 txtIterateFrom.SelectAll();
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (sparkleTimer.Enabled == false)
+            {
+                sparkleClient = new boblightClient(textIP.Text, Int32.Parse(textPort.Text), Int32.Parse(textPriority.Text) - 1);
+                if (sparkleClient.isConnected())
+                {
+                    foreach (light light in sparkleClient.getLights())
+                    {
+                        sparkleClient.setSpeed(light, float.Parse(txtSparkleSpeed.Text));
+                        sparkleClient.setColor(light, txtSparkleColor.Text);
+                        sparkleClient.setUse(light, false);
+                    }
+                    sparkleTimer.Interval = Int32.Parse(txtSparkleCycle.Text);
+                    sparkleTimer.Start();
+                }
+            }
+            else
+            {
+                sparkleTimer.Enabled = false;
+                sparkleClient.disconnect();
+            }
+        }
+
+        private void sparkleTimer_Tick(object sender, EventArgs e)
+        {
+            //Is this still even worth doing?
+            if (sparkleClient.isConnected())
+            {
+                light[] sparkleLights = sparkleClient.getLights();
+                //Unsparkle any previously sparkled lights
+                foreach (light light in sparkleLights)
+                {
+                    if (light.use())
+                        sparkleClient.setUse(light, false);
+                }
+
+                if(Int32.Parse(txtSparkleCount.Text) > 0)
+                {
+                    for(int sparkleNum = 1; sparkleNum <= Int32.Parse(txtSparkleCount.Text); sparkleNum++)
+                    {
+                        Random randomSparkle = new Random();
+                        int sparkleIndex = randomSparkle.Next(0, sparkleLights.Length - 1);
+                        for(int radius = 0; radius <= Int32.Parse(txtSparkleRadius.Text); radius++)
+                        {
+                            if(sparkleIndex + radius < sparkleLights.Length)
+                                sparkleClient.setUse(sparkleLights[sparkleIndex + radius], true);
+                            if(sparkleIndex - radius >= 0)
+                                sparkleClient.setUse(sparkleLights[sparkleIndex - radius], true);
+                        }
+                    }
+                }
+                sparkleClient.syncLights();
+            }
+            else
+            {
+                sparkleTimer.Enabled = false;
+            }
+        }
+
+        private void barLumosity_ValueChanged(object sender, EventArgs e)
+        {
+            client.luminosityModifier = barLumosity.Value / 10D;
+            lblLuminosityValue.Text = client.luminosityModifier.ToString();
+        }
+
+        private void barSaturation_ValueChanged(object sender, EventArgs e)
+        {
+            client.saturationModifier = barSaturation.Value / 10D;
+            lblSaturationValue.Text = client.saturationModifier.ToString();
+        }
+
+        private void barHue_ValueChanged(object sender, EventArgs e)
+        {
+            client.hueModifier = barHue.Value;
+            lblHueValue.Text = client.hueModifier.ToString();
         }
     }
 }
