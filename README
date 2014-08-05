@@ -1,3 +1,14 @@
-This is a .NET boblight client built for version 5 of the boblight protocol.
+boblight-NET
+=========
 
-The client itself is contained in boblight-client.cs, however I've built a simple GUI to test it with.
+Basic class supporting boblight protocol version 5 in C# .NET
+
+About
+=========
+
+This repository contains the base class used for communication with a boblight server. It also has a .NET interface for manipulating the boblight system.
+
+boblight is a client/server model used for controlling lights. It is often used on a Raspberry Pi to control strings of LEDs. The boblight project was made most popular through the release of an XBMC plugin which controlled the boblight server based upon the video media being played. You can see an example of this at https://www.youtube.com/watch?v=dwRvZsxAKh0
+
+Check out the boblight project over at https://code.google.com/p/boblight/
+Check out my python class fork at https://github.com/thaddeusbond/pybob
